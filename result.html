@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrepInterviewAI - Mock Interview Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #4285F4;
+            --secondary-color: #34A853;
+            --accent-color: #FBBC05;
+            --text-color: #202124;
+            --background-color: #FFFFFF;
+            --nav-bg-color: #F8F9FA;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--nav-bg-color);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .auth-button {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .sign-up {
+            background-color: var(--primary-color);
+            color: var(--background-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .sign-up:hover {
+            background-color: #3367d6;
+            border-color: #3367d6;
+        }
+
+        .log-in {
+            background-color: var(--background-color);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .log-in:hover {
+            background-color: #e8f0fe;
+        }
+
+        main {
+            padding-top: 80px;
+        }
+
+        .results-header {
+            background-color: var(--primary-color);
+            color: var(--background-color);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .results-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .results-content {
+            padding: 2rem 0;
+        }
+
+        .card {
+            background-color: var(--background-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        .chart-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .chart-column {
+            flex: 1;
+        }
+
+        .skill-gap-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .skill-gap-table th, .skill-gap-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .skill-gap-table th {
+            background-color: var(--nav-bg-color);
+            font-weight: 600;
+        }
+
+        .priority-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .priority-critical {
+            background-color: #FEE2E2;
+            color: #991B1B;
+        }
+
+        .priority-moderate {
+            background-color: #FEF3C7;
+            color: #92400E;
+        }
+
+        .priority-minor {
+            background-color: #D1FAE5;
+            color: #065F46;
+        }
+
+        .accordion {
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        .accordion-header {
+            padding: 1rem;
+            background-color: var(--nav-bg-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-content {
+            padding: 1rem;
+            display: none;
+        }
+
+        .accordion-content.active {
+            display: block;
+        }
+
+        .recommendation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .recommendation-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 1rem;
+        }
+
+        .recommendation-card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .button-primary {
+            background-color: var(--primary-color);
+            color: var(--background-color);
+            border: none;
+        }
+
+        .button-primary:hover {
+            background-color: #3367d6;
+        }
+
+        .button-secondary {
+            background-color: var(--background-color);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .button-secondary:hover {
+            background-color: #e8f0fe;
+        }
+
+        footer {
+            background-color: var(--text-color);
+            color: var(--background-color);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .overall-score {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .results-header h1 {
+                font-size: 2rem;
+            }
+
+            .recommendation-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- <header>
+        <nav class="container">
+            <div class="logo">PrepInterviewAI</div>
+            <div class="nav-links">
+                <div class="auth-buttons">
+                    <a href="#" class="auth-button sign-up">Sign Up</a>
+                    <a href="#" class="auth-button log-in">Log In</a>
+                </div>
+            </div>
+        </nav>
+    </header> -->
+
+    <main>
+        <section class="results-header">
+            <div class="container">
+                <h1>Mock Interview Results</h1>
+                <p>John Doe - Software Engineer</p>
+                <p>Interview Date: March 15, 2024</p>
+                <div class="overall-score">Overall Score: 85/100</div>
+            </div>
+        </section>
+
+        <section class="results-content container">
+            <div class="card">
+                <h2>Performance Scoring</h2>
+                <div class="chart-row">
+                    <div class="chart-column">
+                        <h3>Category Scores</h3>
+                        <div class="chart-container">
+                            <canvas id="categoryScoresChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-column">
+                        <h3>Skill Radar</h3>
+                        <div class="chart-container">
+                            <canvas id="skillRadarChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Skill Gap Analysis</h2>
+                <table class="skill-gap-table">
+                    <thead>
+                        <tr>
+                            <th>Skill</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>System Design</td>
+                            <td><span class="priority-badge priority-critical">Critical</span></td>
+                        </tr>
+                        <tr>
+                            <td>Data Structures</td>
+                            <td><span class="priority-badge priority-moderate">Moderate</span></td>
+                        </tr>
+                        <tr>
+                            <td>Agile Methodologies</td>
+                            <td><span class="priority-badge priority-minor">Minor</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2>Detailed Feedback</h2>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>Strengths</span>
+                            <span class="accordion-icon">+</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Strong problem-solving skills and technical knowledge.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>Areas for Improvement</span>
+                            <span class="accordion-icon">+</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Could improve on communication and confidence.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>Suggestions</span>
+                            <span class="accordion-icon">+</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Practice more system design questions and work on verbal communication.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Learning Path Recommendations</h2>
+                <div class="recommendation-grid">
+                    <div class="recommendation-card">
+                        <h3>Advanced System Design Course</h3>
+                        <p>Course</p>
+                        <a href="#" class="button button-secondary">View</a>
+                        <button class="button button-primary">Add to Plan</button>
+                    </div>
+                    <div class="recommendation-card">
+                        <h3>Effective Communication for Engineers</h3>
+                        <p>Article</p>
+                        <a href="#" class="button button-secondary">View</a>
+                        <button class="button button-primary">Add to Plan</button>
+                    </div>
+                    <div class="recommendation-card">
+                        <h3>Data Structures and Algorithms Practice</h3>
+                        <p>Practice Questions</p>
+                        <a href="#" class="button button-secondary">View</a>
+                        <button class="button button-primary">Add to Plan</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Next Steps</h2>
+                <button class="button button-primary">Schedule Next Mock Interview</button>
+                <button class="button button-secondary">Download PDF Report</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 PrepInterviewAI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Category Scores Chart
+        const ctxCategoryScores = document.getElementById('categoryScoresChart').getContext('2d');
+        new Chart(ctxCategoryScores, {
+            type: 'bar',
+            data: {
+                labels: ['Communication', 'Problem-Solving', 'Technical Skills', 'Confidence'],
+                datasets: [{
+                    label: 'Category Scores',
+                    data: [80, 90, 85, 75],
+                    backgroundColor: 'rgba(66, 133, 244, 0.6)',
+                    borderColor: 'rgba(66, 133, 244, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        // Skill Radar Chart
+        const ctxSkillRadar = document.getElementById('skillRadarChart').getContext('2d');
+        new Chart(ctxSkillRadar, {
+            type: 'radar',
+            data: {
+                labels: ['Communication', 'Problem-Solving', 'Technical Skills', 'Confidence'],
+                datasets: [{
+                    label: 'Your Performance',
+                    data: [80, 90, 85, 75],
+                    backgroundColor: 'rgba(66, 133, 244, 0.2)',
+                    borderColor: 'rgba(66, 133, 244, 1)',
+                    pointBackgroundColor: 'rgba(66, 133, 244, 1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(66, 133, 244, 1)'
+                }]
+            },
+            options: {
+                scale: {
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        // Accordion functionality
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                content.classList.toggle('active');
+                header.querySelector('.accordion-icon').textContent = content.classList.contains('active') ? '-' : '+';
+            });
+        });
+    </script>
+</body>
+</html>
+

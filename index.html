@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InterviewPrep - AI-Powered Interview Preparation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563EB;
+            --primary-light: #60A5FA;
+            --text-color: #1F2937;
+            --background-color: #FFFFFF;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-700: #374151;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            padding: 1rem 0;
+            background-color: var(--background-color);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            color: var(--primary-color);
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .menu-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .menu-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--gray-700);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-title span {
+            color: var(--primary-color);
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: var(--gray-700);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: var(--primary-light);
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 4rem 0;
+            background-color: var(--gray-100);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .step-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            color: var(--gray-700);
+            font-size: 0.875rem;
+        }
+
+        /* Key Features Section */
+        .key-features {
+            padding: 4rem 0;
+            background-color: var(--background-color);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            border-radius: 0.5rem;
+            background-color: var(--gray-100);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .feature-description {
+            color: var(--gray-700);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="#" class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" fill="currentColor"/>
+                </svg>
+                <span class="logo-text">InterviewPrep</span>
+            </a>
+            <button class="menu-button">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">From Dreams to Offers <span>AI-Powered Interview</span> Preparation That Land You A Dream Job</h1>
+            <p class="hero-description">Look no further than Interview Prep AI! Our revolutionary app uses cutting-edge artificial intelligence technology to simulate real job interviews, giving you the opportunity to practice and perfect your skills before the big day.</p>
+            <a href="job.html" class="cta-button">Get Started</a>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <svg class="step-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 12h8m-8 4h8M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h3 class="step-title">Click on Get Started</h3>
+                    <p class="step-description">Begin by clicking the "Get Started" button at the homepage to enter the platform</p>
+                </div>
+                <div class="step-card">
+                    <svg class="step-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h3 class="step-title">Select Your Job Title</h3>
+                    <p class="step-description">Choose the job title you're preparing for. The platform will auto-fill the job description, or you can manually enter it for customization</p>
+                </div>
+                <div class="step-card">
+                    <svg class="step-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h3 class="step-title">Generate Questions</h3>
+                    <p class="step-description">Click on "Generate Questions" to receive a tailored set of interview questions based on your job title and description</p>
+                </div>
+                <div class="step-card">
+                    <svg class="step-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h3 class="step-title">Answer the Questions</h3>
+                    <p class="step-description">Click on "Generate Questions" to receive a tailored set of interview questions based on your job title and description</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features section remains unchanged in terms of content, only styling updated -->
+    <section class="key-features">
+        <div class="container">
+            <h2 class="section-title">Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">AI-Powered Interview Simulation</h3>
+                    <p class="feature-description">Experience realistic interview scenarios with our advanced AI technology that adapts to your responses and provides real-time feedback.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Personalized Question Generation</h3>
+                    <p class="feature-description">Get custom-tailored interview questions based on your specific job role, industry, and experience level.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Comprehensive Feedback</h3>
+                    <p class="feature-description">Receive detailed feedback on your answers, including content analysis, delivery assessment, and improvement suggestions.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Progress Tracking</h3>
+                    <p class="feature-description">Monitor your improvement over time with detailed analytics and performance metrics.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Industry-Specific Preparation</h3>
+                    <p class="feature-description">Access specialized interview preparation materials tailored to your industry and role.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">24/7 Availability</h3>
+                    <p class="feature-description">Practice whenever and wherever you want, with our platform available round the clock.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InterviewPrep</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f9fc;
+      box-sizing: border-box;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: white;
+      color: #007bff;
+      padding: 15px 20px;
+      height: 80px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    header .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #007bff;
+    }
+    header .menu {
+      display: flex;
+      align-items: center;
+    }
+    header .menu-toggle {
+      display: block;
+      cursor: pointer;
+      font-size: 24px;
+      color: #007bff;
+      border: none;
+      background: none;
+    }
+    header .menu-content {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 80px;
+      right: 20px;
+      background-color: white;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      padding: 10px 0;
+    }
+    header .menu-content a {
+      text-decoration: none;
+      color: #007bff;
+      padding: 10px 20px;
+      display: block;
+    }
+    header .menu-content a:hover {
+      background-color: #f1f1f1;
+    }
+    .container {
+      width: 90%;
+      max-width: 600px;
+      margin: 50px auto;
+      background: #ffffff;
+      padding: 30px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .input-group {
+      margin-bottom: 20px;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    .input-group input, .input-group textarea, .input-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    .input-group textarea {
+      resize: none;
+      height: 200px;
+    }
+    .input-group input:focus, .input-group textarea:focus, .input-group select:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+    .output {
+      margin-top: 20px;
+      padding: 10px;
+      background: #f1f1f1;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">InterviewPrep</div>
+    <div class="menu">
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <div class="menu-content" id="menu-content">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <h1>InterviewPrep</h1>
+    <div class="input-group">
+      <label for="job-title">Select a Job Title</label>
+      <select id="job-title">
+        <option value="" disabled selected>Select the Job Title</option>
+        <option value="Software Engineer">Software Engineer</option>
+        <option value="Data Scientist">Data Scientist</option>
+        <option value="Project Manager">Project Manager</option>
+        <option value="UI/UX Designer">UI/UX Designer</option>
+        <option value="Cyber Security Specialist">Cyber Security Specialist</option>
+        <option value="AI Engineer">AI Engineer</option>
+        <option value="Full Stack Developer">Full Stack Developer</option>
+        <option value="Machine Learning Engineer">Machine Learning Engineer</option>
+        <option value="Cloud Engineer">Cloud Engineer</option>
+        <option value="System Architect">System Architect</option>
+        <option value="Blockchain Engineer">Blockchain Engineer</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label for="job-description">Enter Job Description</label>
+      <textarea id="job-description" placeholder="Enter Job Description..."></textarea>
+    </div>
+    <button class="btn" id="generate-btn" onclick="window.location.href='mock.html';">
+      Generate Question
+  </button>
+  
+     
+  
+    <div class="output" id="output" style="display: none;"></div>
+  </div>
+
+  <script>
+    const jobDescriptions = {
+      "Software Engineer": "Job Title: Software Engineer\n\nRole Summary: As a Software Engineer, you will be responsible for designing, developing, testing, and maintaining software applications to meet the needs of end-users and stakeholders. You will collaborate with cross-functional teams to deliver high-quality and scalable solutions. This role requires excellent programming skills, a solid understanding of software development methodologies, and the ability to adapt to rapidly changing technologies.\n\nKey Responsibilities:\n1. Develop and maintain high-quality software applications.\n2. Write clean, efficient, and well-documented code.\n3. Collaborate with cross-functional teams, including product managers, designers, and QA engineers, to gather requirements and deliver solutions.\n4. Perform code reviews to ensure adherence to coding standards and best practices.\n5. Troubleshoot, debug, and resolve software issues in a timely manner.\n6. Participate in agile development processes, including sprint planning, daily stand-ups, and retrospectives.\n7. Contribute to the continuous improvement of development tools, processes, and practices.\n8. Stay up-to-date with emerging trends and technologies in software development.\n9. Ensure software security, scalability, and performance.\n10. Create and maintain technical documentation.\n\nRequirements:\n1. Proficiency in programming languages such as Java, Python, C++, or JavaScript.\n2. Strong understanding of data structures, algorithms, and software design patterns.\n3. Familiarity with software development tools, such as Git, Docker, and CI/CD pipelines.\n4. Experience with web development frameworks like React, Angular, or Vue.js.\n5. Knowledge of database systems, including SQL and NoSQL databases.\n6. Excellent problem-solving and analytical skills.\n7. Strong communication and teamwork abilities.\n8. Bachelor’s degree in Computer Science, Software Engineering, or a related field.\n9. 0-2 years of experience in software development (for entry-level positions).\n10. A passion for learning and adapting to new technologies.\n\nPreferred Qualifications:\n1. Experience with cloud platforms such as AWS, Azure, or Google Cloud.\n2. Familiarity with DevOps practices and tools.\n3. Knowledge of mobile app development for Android or iOS.\n4. Certification in relevant technologies or methodologies.\n5. Previous experience working in an agile environment.\n\nAdditional Information:\n- Work Hours: Full-time position with occasional flexibility for remote work.\n- Opportunities for career growth and skill development.\n- A collaborative and inclusive work environment that values innovation and creativity.\n- Competitive salary and comprehensive benefits package.\n",
+      "Data Scientist": "Job Title: Data Scientist\n\nRole Summary: Analyzes and interprets complex data to help companies make informed decisions.\n\nResponsibilities:\n- Collect, clean, and analyze data.\n- Build predictive models and algorithms.\n\nRequirements:\n- Strong knowledge of machine learning algorithms.\n- Proficiency in Python, R, or SQL.",
+      "Project Manager": "Job Title: Project Manager\n\nRole Summary: Oversees projects to ensure they are completed on time and within budget.\n\nResponsibilities:\n- Plan, execute, and monitor projects.\n- Manage resources and communicate with stakeholders.\n\nRequirements:\n- Strong organizational and communication skills.\n- Experience in project management tools like JIRA or Trello.",
+      "UI/UX Designer": "Job Title: UI/UX Designer\n\nRole Summary: Designs user interfaces and enhances user experience for digital products.\n\nResponsibilities:\n- Create wireframes and prototypes.\n- Collaborate with developers and stakeholders.\n\nRequirements:\n- Proficiency in tools like Figma or Adobe XD.\n- Strong design portfolio.",
+      "Cyber Security Specialist": "Job Title: Cyber Security Specialist\n\nRole Summary: Protects organizational data and systems from cyber threats.\n\nResponsibilities:\n- Monitor and secure networks.\n- Conduct vulnerability assessments.\n\nRequirements:\n- Knowledge of cybersecurity frameworks.\n- Experience with tools like Wireshark or Splunk.",
+      "AI Engineer": "Job Title: AI Engineer\n\nRole Summary: Designs and implements AI models and systems.\n\nResponsibilities:\n- Build and deploy AI models.\n- Collaborate with data scientists.\n\nRequirements:\n- Proficiency in Python and TensorFlow.\n- Strong understanding of machine learning.",
+      "Full Stack Developer": "Job Title: Full Stack Developer\n\nRole Summary: Develops both frontend and backend components of web applications.\n\nResponsibilities:\n- Design and build scalable web applications.\n- Integrate APIs and databases.\n\nRequirements:\n- Proficiency in JavaScript frameworks like React or Angular.\n- Experience with backend technologies like Node.js or Django.",
+      "Machine Learning Engineer": "Job Title: Machine Learning Engineer\n\nRole Summary: Builds and optimizes machine learning models.\n\nResponsibilities:\n- Train and deploy ML models.\n- Optimize algorithms for performance.\n\nRequirements:\n- Experience with frameworks like PyTorch.\n- Strong mathematical background.",
+      "Cloud Engineer": "Job Title: Cloud Engineer\n\nRole Summary: Manages cloud infrastructure and services.\n\nResponsibilities:\n- Design and maintain cloud solutions.\n- Monitor cloud performance and security.\n\nRequirements:\n- Knowledge of cloud platforms like AWS or Azure.\n- Proficiency in cloud management tools.",
+      "System Architect": "Job Title: System Architect\n\nRole Summary: Designs and oversees the architecture of IT systems.\n\nResponsibilities:\n- Develop and implement IT architecture.\n- Ensure system scalability and reliability.\n\nRequirements:\n- Strong understanding of IT infrastructure.\n- Experience with system design tools.",
+      "Blockchain Engineer": "Job Title: Blockchain Engineer\n\nRole Summary: Develops and implements blockchain-based solutions.\n\nResponsibilities:\n- Build and maintain blockchain applications.\n- Ensure data security and immutability.\n\nRequirements:\n- Knowledge of blockchain platforms like Ethereum.\n- Proficiency in smart contract programming languages like Solidity."
+    };
+
+    function toggleMenu() {
+      const menuContent = document.getElementById('menu-content');
+      menuContent.style.display = menuContent.style.display === 'block' ? 'none' : 'block';
+    }
+
+    document.getElementById('job-title').addEventListener('change', function() {
+      const selectedJob = this.value;
+      if (jobDescriptions[selectedJob]) {
+        document.getElementById('job-description').value = jobDescriptions[selectedJob];
+      } else {
+        document.getElementById('job-description').value = "";
+      }
+    });
+
+    document.getElementById('generate-btn').addEventListener('click', function() {
+      const output = document.getElementById('output');
+      output.style.display = 'block';
+      output.innerText = "Questions generated successfully."; // Placeholder action for demonstration.
+    });
+  </script>
+</body>
+</html>
